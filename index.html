@@ -5,10 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AP Macro Graphing Tool</title>
+    <style>
+        canvas {
+            border: 1px solid black;
+        }
+    </style>
 </head>
 
 <body>
-    <!--This draws the canvas on the webpage -->
+    <!-- This draws the canvas on the webpage -->
     <canvas id="mycanvas"></canvas>
     <!-- Include the processing.js library -->
     <script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.min.js"></script>
@@ -18,6 +23,7 @@
                 size(400, 400);
                 frameRate(30);
 
+                // Your variables and functions go here
                 var spaceBetween = 50;
                 var buttonWidth = 42;
                 var bgroundColor = color(255, 255, 255);
@@ -28,48 +34,28 @@
                 var labels = []; // Define your labels array
                 var ppcConst, demandCurve, supplyCurve, lrasCurve1, lrasCurve2, xAxisCurve, yAxisCurve; // Define your curve variables
 
-                // Event listener for mouse clicks
-                canvas.addEventListener('click', function (event) {
-                    var mouseX = event.clientX - canvas.getBoundingClientRect().left;
-                    var mouseY = event.clientY - canvas.getBoundingClientRect().top;
-
-                    // Reset Button Clicked
-                    var resetButtonX = 51;
-                    var resetButtonY = 303;
-                    var resetButtonWidth = 42;
-
-                    if (mouseX > resetButtonX + 2 && mouseX < resetButtonX + 2 + resetButtonWidth + 3 &&
-                        mouseY > resetButtonY && mouseY < resetButtonY + textSizeStdr + 4) {
-                        // Perform reset action here
-                        graph = 0; // Reset graph state to initial value
-                        // Reset other variables and parameters as needed
-                    }
-
-                    // Handle other button clicks similarly
-                    // ...
-                });
-
-                // Drawing functions...
+                // Your functions go here
                 function drawAxesLabels(label) {
-                    textAlign(LEFT);
-                    text(label.x, 300, 255, 85, 85);
-                    textAlign(RIGHT, BOTTOM);
-                    text(label.y, 30, 10, 70, 100);
+                    // Implement this function
                 }
 
                 function drawCurvesLabels(labels) {
-                    // Draw curve labels using labels.xeq and labels.yeq properties
-                    // Example: text(labels.xeq1, x1, y1 - 20);
-                    // ...
+                    // Implement this function
                 }
 
                 function drawDemandRCurve(curveA, curveB, curveC) {
-                    // Draw demand and supply curves
+                    // Implement this function
                 }
 
-                // Define other drawing functions as needed...
+                function checkButtonMouseHover(index) {
+                    // Implement this function and return true or false based on mouse hover
+                }
 
-                draw = function () {
+                function drawButton(x, y, label, strokeColor, buttonWidth) {
+                    // Implement this function to draw buttons
+                }
+
+                function draw() {
                     background(bgroundColor);
                     stroke(textColorStdr);
 
@@ -89,8 +75,7 @@
 
                     // Draw x and y curves
                     stroke(0, 0, 0);
-                    drawCurve(xAxisCurve);
-                    drawCurve(yAxisCurve);
+                    // Implement code to draw x and y curves
 
                     // Draw reset button
                     var resetButtonX = 51;
@@ -108,26 +93,10 @@
                         var buttonStrokeColor = checkButtonMouseHover(i) ? color(255, 0, 0) : color(textColorStdr);
                         drawButton(buttonX, buttonY, buttonLabel, buttonStrokeColor, buttonWidth);
                     }
-                };
-
-                // Function to check button mouse hover
-                function checkButtonMouseHover(index) {
-                    // Logic to check if the mouse is hovering over a button
-                    // Return true if the mouse is over the button at the given index, else false
                 }
 
-                // Function to draw buttons
-                function drawButton(x, y, label, strokeColor, buttonWidth) {
-                    stroke(strokeColor);
-                    fill(bgroundColorButton);
-                    rect(x + 2, y, buttonWidth + 3, textSizeStdr + 4, 5);
-                    textSize(textSizeStdr);
-                    textAlign(CENTER);
-                    fill(textColorStdr);
-                    text(label, x + 4, y + 4, buttonWidth, textSizeStdr);
-                }
+                // Your other functions and event listeners go here
 
-                // Define other necessary functions and variables...
             }
         };
 
