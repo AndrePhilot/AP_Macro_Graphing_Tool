@@ -1,174 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AP Macro Graphing Tool</title>
 </head>
+
 <body>
-	<!--This draws the canvas on the webpage -->
-    <canvas id="mycanvas"></canvas> 
-  </body>
- 
-  <!-- Include the processing.js library -->
-  <!-- See https://khanacademy.zendesk.com/hc/en-us/articles/202260404-What-parts-of-ProcessingJS-does-Khan-Academy-support- for differences -->
-  <script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.min.js"></script> 
-  <script>
-  var programCode = function(processingInstance) {
-    with (processingInstance) {
-      size(400, 400); 
-      frameRate(30);
-        
-      // Paste code from Khan Academy here:
-      var spaceBetween = 50;
-var buttonWidth = 42;
-var bgroundColor = color(255, 255, 255);
-var bgroundColorButton = bgroundColor;
-var textColorStdr = color(0, 0, 0);
-var textSizeStdr = 13;
-var leftEdge = 0;
-var yLevel = 340;
+    <!--This draws the canvas on the webpage -->
+    <canvas id="mycanvas"></canvas>
+    <!-- Include the processing.js library -->
+    <script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.min.js"></script>
+    <script>
+        var programCode = function (processingInstance) {
+            with (processingInstance) {
+                size(400, 400);
+                frameRate(30);
 
-// Curve Object Definition
-function Curve(x1, y1, x2, y2) {
-    this.x1 = x1;
-    this.y1 = y1;
-    this.x2 = x2;
-    this.y2 = y2;
-}
+                var spaceBetween = 50;
+                var buttonWidth = 42;
+                var bgroundColor = color(255, 255, 255);
+                var bgroundColorButton = bgroundColor;
+                var textColorStdr = color(0, 0, 0);
+                var textSizeStdr = 13;
+                var graph = 0; // Variable to track the current graph state
+                var labels = []; // Define your labels array
+                var ppcConst, demandCurve, supplyCurve, lrasCurve1, lrasCurve2, xAxisCurve, yAxisCurve; // Define your curve variables
 
-Curve.prototype.lowlabels = function(talign, nameLabel) {
-    textAlign(talign);
-    text(nameLabel, this.x2, this.y2 + 20);
-};
+                // Event listener for mouse clicks
+                canvas.addEventListener('click', function (event) {
+                    var mouseX = event.clientX - canvas.getBoundingClientRect().left;
+                    var mouseY = event.clientY - canvas.getBoundingClientRect().top;
 
-Curve.prototype.highlabels = function(talign, nameLabel) {
-    textAlign(talign);
-    text(nameLabel, this.x2, this.y2 - 20);
-};
+                    // Reset Button Clicked
+                    var resetButtonX = 51;
+                    var resetButtonY = 303;
+                    var resetButtonWidth = 42;
 
-Curve.prototype.lowVlabels = function(nameLabel, y2) {
-    textAlign(CENTER);
-    text(nameLabel, this.x1, y2 + yAxisOrigin + 20);
-};
+                    if (mouseX > resetButtonX + 2 && mouseX < resetButtonX + 2 + resetButtonWidth + 3 &&
+                        mouseY > resetButtonY && mouseY < resetButtonY + textSizeStdr + 4) {
+                        // Perform reset action here
+                        graph = 0; // Reset graph state to initial value
+                        // Reset other variables and parameters as needed
+                    }
 
-Curve.prototype.yAxisLabel = function(nameLabel, x2, y1) {
-    textAlign(CENTER);
-    text(nameLabel, this.x1 - 20 - x2, y1);
-};
+                    // Handle other button clicks similarly
+                    // ...
+                });
 
-Curve.prototype.lowRightArrow = function() {
-    textSize(1.5 * textSizeStdr);
-    textAlign(LEFT);
-    text("→", this.x2 - 60, this.y2 - 20);
-    textSize(textSizeStdr);
-};
+                // Drawing functions...
+                function drawAxesLabels(label) {
+                    textAlign(LEFT);
+                    text(label.x, 300, 255, 85, 85);
+                    textAlign(RIGHT, BOTTOM);
+                    text(label.y, 30, 10, 70, 100);
+                }
 
-// Other Curve functions...
+                function drawCurvesLabels(labels) {
+                    // Draw curve labels using labels.xeq and labels.yeq properties
+                    // Example: text(labels.xeq1, x1, y1 - 20);
+                    // ...
+                }
 
-// Drawing functions...
-function drawAxesLabels(label) {
-    textAlign(LEFT);
-    text(label.x, 300, 255, 85, 85);
-    textAlign(RIGHT, BOTTOM);
-    text(label.y, 30, 10, 70, 100);
-}
+                function drawDemandRCurve(curveA, curveB, curveC) {
+                    // Draw demand and supply curves
+                }
 
-function drawCurvesLabels(labels) {
-    // Draw curve labels using labels.xeq and labels.yeq properties
-    // Example: text(labels.xeq1, x1, y1 - 20);
-    // ...
-}
+                // Define other drawing functions as needed...
 
-function drawDemandRCurve(curveA, curveB, curveC) {
-    drawCurve(curveA);
-    drawCurve(curveB);
-    drawCurve(curveC);
-}
+                draw = function () {
+                    background(bgroundColor);
+                    stroke(textColorStdr);
 
-function drawDemandRCurveUp(curveA, curveB, curveC) {
-    drawCurve(curveA);
-    drawCurve(curveB);
-    drawCurve(curveC);
-}
+                    // Draw different graphs based on the graph variable
+                    if (graph === 0) {
+                        // Draw first graph
+                        drawAxesLabels(labels[0]);
+                        drawDemandRCurve(ppcConst, demandCurve, supplyCurve);
+                        // Draw other necessary elements for this graph
+                    } else if (graph === 1) {
+                        // Draw second graph
+                        drawAxesLabels(labels[2]);
+                        drawDemandRCurve(demandCurve, supplyCurve, lrasCurve1);
+                        // Draw other necessary elements for this graph
+                    }
+                    // Handle other graph cases similarly...
 
-function drawDemandRCurveDown(curveA, curveB, curveC) {
-    drawCurve(curveA);
-    drawCurve(curveB);
-    drawCurve(curveC);
-}
+                    // Draw x and y curves
+                    stroke(0, 0, 0);
+                    drawCurve(xAxisCurve);
+                    drawCurve(yAxisCurve);
 
-function drawCurve(curve) {
-    line(curve.x1, curve.y1, curve.x2, curve.y2);
-}
+                    // Draw reset button
+                    var resetButtonX = 51;
+                    var resetButtonY = 303;
+                    var resetButtonLabel = "Reset";
+                    var resetButtonWidth = buttonWidth;
+                    var resetButtonStrokeColor = (mouseX > resetButtonX + 2 && mouseX < resetButtonX + 2 + resetButtonWidth + 3 && mouseY > resetButtonY && mouseY < resetButtonY + textSizeStdr + 4) ? color(255, 0, 0) : color(textColorStdr);
+                    drawButton(resetButtonX, resetButtonY, resetButtonLabel, resetButtonStrokeColor, resetButtonWidth);
 
-function drawButton(x, y, label, strokeColor, buttonWidth) {
-    stroke(strokeColor);
-    fill(bgroundColorButton);
-    rect(x + 2, y, buttonWidth + 3, textSizeStdr + 4, 5);
-    textSize(textSizeStdr);
-    textAlign(CENTER);
-    fill(textColorStdr);
-    text(label, x + 4, y + 4, buttonWidth, textSizeStdr);
-}
+                    // Draw other buttons
+                    for (var i = 0; i < buttonLabel1st.length; i++) {
+                        var buttonX = i * spaceBetween + 200;
+                        var buttonY = 340;
+                        var buttonLabel = buttonLabel1st[i];
+                        var buttonStrokeColor = checkButtonMouseHover(i) ? color(255, 0, 0) : color(textColorStdr);
+                        drawButton(buttonX, buttonY, buttonLabel, buttonStrokeColor, buttonWidth);
+                    }
+                };
 
-draw = function() {
-    background(bgroundColor);
-    stroke(textColorStdr);
+                // Function to check button mouse hover
+                function checkButtonMouseHover(index) {
+                    // Logic to check if the mouse is hovering over a button
+                    // Return true if the mouse is over the button at the given index, else false
+                }
 
-    var drawGraph = function(index, x, y, labels, curves) {
-        if (graph === index) {
-            drawAxesLabels(labels);
-            for (var i = 0; i < curves.length; i++) {
-                drawCurve(curves[i]);
+                // Function to draw buttons
+                function drawButton(x, y, label, strokeColor, buttonWidth) {
+                    stroke(strokeColor);
+                    fill(bgroundColorButton);
+                    rect(x + 2, y, buttonWidth + 3, textSizeStdr + 4, 5);
+                    textSize(textSizeStdr);
+                    textAlign(CENTER);
+                    fill(textColorStdr);
+                    text(label, x + 4, y + 4, buttonWidth, textSizeStdr);
+                }
+
+                // Define other necessary functions and variables...
             }
-        }
-    };
+        };
 
-    drawGraph(0, 0, 0, labels[0], [ppcConst]);
-    drawGraph(1, 0, 0, labels[2], [demandCurve, supplyCurve, lrasCurve1]);
-    drawGraph(2, 0, 0, labels[1], [demandCurve, supplyCurve]);
-    drawGraph(3, 0, 0, labels[3], [demandCurve, lrasCurve2]);
-    drawGraph(6, 0, 0, labels[4], [lrasCurve1]);
-    drawGraph(7, 0, 0, labels[5], [demandCurve, supplyCurve]);
-    drawGraph(10, 0, 0, labels[6], [demandCurve, lrasCurve2]);
-    drawGraph(11, 0, 0, labels[7], [demandCurve, supplyCurve]);
+        // Get the canvas that ProcessingJS will use
+        var canvas = document.getElementById("mycanvas");
+        // Pass the function to ProcessingJS constructor
+        var processingInstance = new Processing(canvas, programCode);
+    </script>
+</body>
 
-    // ... (other conditions)
-
-    // Drawing x and y curves
-    stroke(0, 0, 0);
-    drawCurve(xAxisCurve);
-    drawCurve(yAxisCurve);
-
-    // Drawing mini x and y curves
-    fill(255, 255, 255);
-    rect(0, 299, 100, 100);
-    line(26, 325, 26, 395);
-    line(9, 380, 44, 345);
-    line(9, 345, 44, 380);
-
-    // Reset button
-    var resetButtonX = 51;
-    var resetButtonY = 303;
-    var resetButtonLabel = "Reset";
-    var resetButtonWidth = buttonWidth;
-    var resetButtonStrokeColor = (mouseX > resetButtonX + 2 && mouseX < resetButtonX + 2 + resetButtonWidth + 3 && mouseY > resetButtonY && mouseY < resetButtonY + textSizeStdr + 4) ? color(255, 0, 0) : color(textColorStdr);
-    drawButton(resetButtonX, resetButtonY, resetButtonLabel, resetButtonStrokeColor, resetButtonWidth);
-
-    // Drawing other buttons
-    for (var i = 0; i < buttonLabel1st.length; i++) {
-        var buttonX = i * spaceBetween + 200;
-        var buttonY = yLevel;
-        var buttonLabel = buttonLabel1st[i];
-        var buttonStrokeColor = checkButtonMouseHover(i) ? color(255, 0, 0) : color(textColorStdr);
-        drawButton(buttonX, buttonY, buttonLabel, buttonStrokeColor, buttonWidth);
-    }
-};
-
-  // Get the canvas that ProcessingJS will use
-  var canvas = document.getElementById("mycanvas"); 
-  // Pass the function to ProcessingJS constructor
-  var processingInstance = new Processing(canvas, programCode); 
-  </script>
 </html>
