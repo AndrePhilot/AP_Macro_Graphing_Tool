@@ -30,73 +30,55 @@
                 var bgroundColorButton = bgroundColor;
                 var textColorStdr = color(0, 0, 0);
                 var textSizeStdr = 13;
-                var graph = 0; // Variable to track the current graph state
-                var labels = []; // Define your labels array
-                var ppcConst, demandCurve, supplyCurve, lrasCurve1, lrasCurve2, xAxisCurve, yAxisCurve; // Define your curve variables
-
-                // Your functions go here
-                function drawAxesLabels(label) {
-                    // Implement this function
-                }
-
-                function drawCurvesLabels(labels) {
-                    // Implement this function
-                }
-
-                function drawDemandRCurve(curveA, curveB, curveC) {
-                    // Implement this function
-                }
-
-                function checkButtonMouseHover(index) {
-                    // Implement this function and return true or false based on mouse hover
-                }
-
-                function drawButton(x, y, label, strokeColor, buttonWidth) {
-                    // Implement this function to draw buttons
-                }
 
                 function draw() {
                     background(bgroundColor);
-                    stroke(textColorStdr);
 
-                    // Draw different graphs based on the graph variable
-                    if (graph === 0) {
-                        // Draw first graph
-                        drawAxesLabels(labels[0]);
-                        drawDemandRCurve(ppcConst, demandCurve, supplyCurve);
-                        // Draw other necessary elements for this graph
-                    } else if (graph === 1) {
-                        // Draw second graph
-                        drawAxesLabels(labels[2]);
-                        drawDemandRCurve(demandCurve, supplyCurve, lrasCurve1);
-                        // Draw other necessary elements for this graph
-                    }
-                    // Handle other graph cases similarly...
-
-                    // Draw x and y curves
-                    stroke(0, 0, 0);
-                    // Implement code to draw x and y curves
+                    // Draw your graph and buttons here
+                    // For example:
+                    stroke(0);
+                    fill(150);
+                    rect(50, 50, 300, 300);
 
                     // Draw reset button
-                    var resetButtonX = 51;
-                    var resetButtonY = 303;
-                    var resetButtonLabel = "Reset";
-                    var resetButtonWidth = buttonWidth;
-                    var resetButtonStrokeColor = (mouseX > resetButtonX + 2 && mouseX < resetButtonX + 2 + resetButtonWidth + 3 && mouseY > resetButtonY && mouseY < resetButtonY + textSizeStdr + 4) ? color(255, 0, 0) : color(textColorStdr);
-                    drawButton(resetButtonX, resetButtonY, resetButtonLabel, resetButtonStrokeColor, resetButtonWidth);
+                    stroke(textColorStdr);
+                    fill(bgroundColorButton);
+                    rect(50, 370, buttonWidth, 30, 5);
+                    textAlign(CENTER, CENTER);
+                    fill(textColorStdr);
+                    text("Reset", 50 + buttonWidth / 2, 385);
 
                     // Draw other buttons
-                    for (var i = 0; i < buttonLabel1st.length; i++) {
-                        var buttonX = i * spaceBetween + 200;
-                        var buttonY = 340;
-                        var buttonLabel = buttonLabel1st[i];
-                        var buttonStrokeColor = checkButtonMouseHover(i) ? color(255, 0, 0) : color(textColorStdr);
-                        drawButton(buttonX, buttonY, buttonLabel, buttonStrokeColor, buttonWidth);
+                    for (var i = 0; i < 4; i++) {
+                        var buttonX = 150 + i * spaceBetween;
+                        var buttonY = 370;
+                        stroke(textColorStdr);
+                        fill(bgroundColorButton);
+                        rect(buttonX, buttonY, buttonWidth, 30, 5);
+                        textAlign(CENTER, CENTER);
+                        fill(textColorStdr);
+                        text("Button " + (i + 1), buttonX + buttonWidth / 2, 385);
                     }
                 }
 
-                // Your other functions and event listeners go here
+                // Handle mouse click event
+                mousePressed = function () {
+                    // Check if the mouse is inside the reset button
+                    if (mouseX > 50 && mouseX < 50 + buttonWidth && mouseY > 370 && mouseY < 400) {
+                        // Implement reset functionality
+                        // For example: resetGraph();
+                    }
 
+                    // Check other buttons and handle their functionality
+                    // For example:
+                    for (var i = 0; i < 4; i++) {
+                        var buttonX = 150 + i * spaceBetween;
+                        if (mouseX > buttonX && mouseX < buttonX + buttonWidth && mouseY > 370 && mouseY < 400) {
+                            // Handle button click for Button i
+                            // For example: handleButtonClick(i);
+                        }
+                    }
+                };
             }
         };
 
