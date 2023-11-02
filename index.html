@@ -9,12 +9,32 @@
         canvas {
             border: 1px solid black;
         }
+
+        .button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
     </style>
 </head>
 
 <body>
     <!-- This draws the canvas on the webpage -->
-    <canvas id="mycanvas"></canvas>
+    <canvas id="mycanvas" width="400" height="400"></canvas>
+    <!-- Buttons -->
+    <button class="button" id="resetButton">Reset</button>
+    <button class="button" id="button1">Button 1</button>
+    <button class="button" id="button2">Button 2</button>
+    <button class="button" id="button3">Button 3</button>
+    <button class="button" id="button4">Button 4</button>
+
     <!-- Include the processing.js library -->
     <script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.min.js"></script>
     <script>
@@ -24,60 +44,34 @@
                 frameRate(30);
 
                 // Your variables and functions go here
-                var spaceBetween = 50;
-                var buttonWidth = 42;
-                var bgroundColor = color(255, 255, 255);
-                var bgroundColorButton = bgroundColor;
-                var textColorStdr = color(0, 0, 0);
-                var textSizeStdr = 13;
 
-                function draw() {
-                    background(bgroundColor);
+                draw = function () {
+                    // Draw your graph and other elements here
+                    background(255); // Set background color to white
+                    fill(0); // Set fill color to black
+                    rect(50, 50, 300, 300); // Example rectangle for the graph area
+                };
 
-                    // Draw your graph and buttons here
-                    // For example:
-                    stroke(0);
-                    fill(150);
-                    rect(50, 50, 300, 300);
+                // Handle button clicks
+                document.getElementById("resetButton").onclick = function () {
+                    // Implement reset functionality
+                    // For example: resetGraph();
+                };
 
-                    // Draw reset button
-                    stroke(textColorStdr);
-                    fill(bgroundColorButton);
-                    rect(50, 370, buttonWidth, 30, 5);
-                    textAlign(CENTER, CENTER);
-                    fill(textColorStdr);
-                    text("Reset", 50 + buttonWidth / 2, 385);
+                document.getElementById("button1").onclick = function () {
+                    // Implement functionality for Button 1 click
+                };
 
-                    // Draw other buttons
-                    for (var i = 0; i < 4; i++) {
-                        var buttonX = 150 + i * spaceBetween;
-                        var buttonY = 370;
-                        stroke(textColorStdr);
-                        fill(bgroundColorButton);
-                        rect(buttonX, buttonY, buttonWidth, 30, 5);
-                        textAlign(CENTER, CENTER);
-                        fill(textColorStdr);
-                        text("Button " + (i + 1), buttonX + buttonWidth / 2, 385);
-                    }
-                }
+                document.getElementById("button2").onclick = function () {
+                    // Implement functionality for Button 2 click
+                };
 
-                // Handle mouse click event
-                mousePressed = function () {
-                    // Check if the mouse is inside the reset button
-                    if (mouseX > 50 && mouseX < 50 + buttonWidth && mouseY > 370 && mouseY < 400) {
-                        // Implement reset functionality
-                        // For example: resetGraph();
-                    }
+                document.getElementById("button3").onclick = function () {
+                    // Implement functionality for Button 3 click
+                };
 
-                    // Check other buttons and handle their functionality
-                    // For example:
-                    for (var i = 0; i < 4; i++) {
-                        var buttonX = 150 + i * spaceBetween;
-                        if (mouseX > buttonX && mouseX < buttonX + buttonWidth && mouseY > 370 && mouseY < 400) {
-                            // Handle button click for Button i
-                            // For example: handleButtonClick(i);
-                        }
-                    }
+                document.getElementById("button4").onclick = function () {
+                    // Implement functionality for Button 4 click
                 };
             }
         };
