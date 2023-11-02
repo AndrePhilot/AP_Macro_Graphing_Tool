@@ -173,32 +173,32 @@ var lrasCurve3d = new Curve (xAxisOrigin + axesLength/2.65 - 25, yAxisOrigin, xA
 // PPC curves
 var ppcCurve = function () {
     noFill();
-    arc(100, 250, 300, 300, -89, 0);
+    arc(100, 250, 300, 300, radians(-89), 0);
 };
 
 var ppcCurveI = function () {
     noFill();
-    arc(100, 250, 200, 200, -89, 0);
+    arc(100, 250, 200, 200, -1.55334, 0);
 };
 
 var ppcCurveD = function () {
     noFill();
-    arc(100, 250, 400, 400, -89, 0);
+    arc(100, 250, 400, 400, -1.55334, 0);
 };
 
 var ppcDecr = function () {
     noFill();
-    arc(245, 65, 294, 370, -271, -190);
+    arc(245, 65, 294, 370, -4.733, -3.323);
 };
 
 var ppcDecrI = function () {
     noFill();
-    arc(294, 10, 393, 480, -271, -190);
+    arc(294, 10, 393, 480, -4.733, -3.323);
 };
 
 var ppcDecrD = function () {
     noFill();
-    arc(196, 115, 194, 271, -271, -190);
+    arc(196, 115, 194, 271, -4.733, -3.323);
 };
 
 var labels = [
@@ -720,6 +720,7 @@ draw = function() {
 // Drawing AD-AS Inflationary Gap AD Increasing
     } else if (graph === 9 && shift === 5) {
         drawCurve (demandCurve2);
+        demandCurve2.lowRightArrow();
         demandCurve2.lowlabels (LEFT, "AD2");   
         dottedLine (xAxisOrigin, axesLength * 3/4 - 25, axesLength + 25, axesLength * 3/4 - 25, "PL2");
         dottedLine (axesLength + 25, axesLength - 75, axesLength + 25, yAxisOrigin, "", "Y2");
@@ -765,6 +766,7 @@ draw = function() {
 // Drawing FX D1 Increasing
     } else if (graph === 11 & shift === 5) {
         drawCurve (demandCurve2);
+        demandCurve2.lowRightArrow();
         demandCurve2.lowlabels (LEFT, "D2");
         dottedLine (xAxisOrigin, axesLength * 3/4 - 25, axesLength + 25, axesLength * 3/4 - 25, "e2");
         dottedLine (axesLength + 25, axesLength - 75, axesLength + 25, yAxisOrigin, "", "Q2");
